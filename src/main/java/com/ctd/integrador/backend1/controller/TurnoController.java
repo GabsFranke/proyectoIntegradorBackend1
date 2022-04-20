@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.NoSuchElementException;
 import java.util.Set;
 
 @RestController
@@ -24,7 +25,7 @@ public class TurnoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TurnoDTO> buscarPorId(@PathVariable Long id) throws ResourceNotFoundException {
+    public ResponseEntity<TurnoDTO> buscarPorId(@PathVariable Long id) throws NoSuchElementException {
         return ResponseEntity.ok(service.buscarPorId(id));
     }
 
