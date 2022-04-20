@@ -7,9 +7,9 @@ import com.ctd.integrador.backend1.model.DomicilioDTO;
 import java.util.Set;
 
 public interface IDomicilioService {
-    DomicilioDTO buscarPorId(Integer id) throws ResourceNotFoundException;
+    DomicilioDTO buscarPorId(Long id) throws ResourceNotFoundException;
     Set<DomicilioDTO> buscarTodos();
-    void eliminarDomicilio(Integer id) throws ResourceNotFoundException;
-    DomicilioDTO actualizarDomicilio(Integer id, DomicilioDTO domicilioDTO) throws ResourceNotFoundException;
+    void eliminarDomicilio(Long id) throws ResourceNotFoundException;
+    DomicilioDTO actualizarDomicilio(Long id, DomicilioDTO domicilioDTO) throws ResourceNotFoundException;
     DomicilioDTO agregarDomicilio(DomicilioDTO domicilioDTO);
 }

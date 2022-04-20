@@ -29,7 +29,7 @@ public class PacienteService implements IPacienteService {
 
 
     @Override
-    public PacienteDTO buscarPorId(Integer id) throws ResourceNotFoundException {
+    public PacienteDTO buscarPorId(Long id) throws ResourceNotFoundException {
          Paciente paciente = repository.findById(id).get();
          PacienteDTO pacienteDTO = mapper.convertValue(paciente, PacienteDTO.class);
          return pacienteDTO;
@@ -58,7 +58,7 @@ public class PacienteService implements IPacienteService {
     }
 
     @Override
-    public void eliminarPaciente(Integer id) throws ResourceNotFoundException {
+    public void eliminarPaciente(Long id) throws ResourceNotFoundException {
         if(repository.findById(id).isPresent()) {
             repository.deleteById(id);
         }  else {
@@ -67,7 +67,7 @@ public class PacienteService implements IPacienteService {
     }
 
     @Override
-    public PacienteDTO actualizarPaciente(Integer id, PacienteDTO pacienteDTO) throws ResourceNotFoundException {
+    public PacienteDTO actualizarPaciente(Long id, PacienteDTO pacienteDTO) throws ResourceNotFoundException {
         Optional<Paciente> pacienteBuscado = Optional.of(repository.findById(id).get());
         if(pacienteBuscado.isPresent()) {
             Paciente paciente = mapper.convertValue(pacienteDTO, Paciente.class);

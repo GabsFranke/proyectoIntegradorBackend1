@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Setter @Getter
 public class OdontologoDTO {
-    private Integer id;
+    private Long id;
     private String nombre;
     private String apellido;
     private Integer matricula;

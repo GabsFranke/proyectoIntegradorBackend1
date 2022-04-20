@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class FinalBackend1Application {
+public class IntegradorBackend1Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(FinalBackend1Application.class, args);
+		SpringApplication.run(IntegradorBackend1Application.class, args);
 	}
 
 }

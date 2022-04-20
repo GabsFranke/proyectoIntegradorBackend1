@@ -28,9 +28,9 @@ public class OdontologoService implements IOdontologoService {
     }
 
     @Override
-    public OdontologoDTO buscarPorId(Integer id) throws ResourceNotFoundException {
+    public OdontologoDTO buscarPorId(Long id) throws ResourceNotFoundException {
 
-        Optional<Odontologo> odontologoBuscado = Optional.of(repository.findById(id).get());
+        Optional<Odontologo> odontologoBuscado = Optional.of(repository.findById((id)).get());
         if(odontologoBuscado.isPresent()) {
             OdontologoDTO odontologoDTO = mapper.convertValue(odontologoBuscado, OdontologoDTO.class);
             return odontologoDTO;
@@ -54,7 +54,7 @@ public class OdontologoService implements IOdontologoService {
     }
 
     @Override
-    public void eliminarOdontologo(Integer id) throws ResourceNotFoundException {
+    public void eliminarOdontologo(Long id) throws ResourceNotFoundException {
         Optional<Odontologo> odontologoBuscado = Optional.of(repository.findById(id).get());
         if(odontologoBuscado.isPresent()) {
             repository.deleteById(id);
@@ -64,7 +64,7 @@ public class OdontologoService implements IOdontologoService {
     }
 
     @Override
-    public OdontologoDTO actualizarOdontologo(Integer id, OdontologoDTO odontologoDTO) throws ResourceNotFoundException {
+    public OdontologoDTO actualizarOdontologo(Long id, OdontologoDTO odontologoDTO) throws ResourceNotFoundException {
         Optional<Odontologo> odontologoBuscado = Optional.of(repository.findById(id).get());
         if(odontologoBuscado.isPresent()) {
             Odontologo odontologo = mapper.convertValue(odontologoDTO, Odontologo.class);

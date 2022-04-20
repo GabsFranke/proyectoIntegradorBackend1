@@ -30,7 +30,7 @@ public class PacienteController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PacienteDTO> buscarPorId(@PathVariable Integer id) throws ResourceNotFoundException{
+    public ResponseEntity<PacienteDTO> buscarPorId(@PathVariable Long id) throws ResourceNotFoundException{
         if (service.buscarPorId(id) == null) {
             throw new ResourceNotFoundException("Paciente no encontrado");
         } else {
@@ -51,13 +51,13 @@ public class PacienteController {
 //    }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> actualizarPaciente(@PathVariable Integer id, @RequestBody PacienteDTO pacienteDTO) throws ResourceNotFoundException {
+    public ResponseEntity<?> actualizarPaciente(@PathVariable Long id, @RequestBody PacienteDTO pacienteDTO) throws ResourceNotFoundException {
         service.actualizarPaciente(id, pacienteDTO);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> borrarPaciente(@PathVariable Integer id) throws ResourceNotFoundException {
+    public ResponseEntity<?> borrarPaciente(@PathVariable Long id) throws ResourceNotFoundException {
         service.eliminarPaciente(id);
         return ResponseEntity.ok(HttpStatus.OK);
     }

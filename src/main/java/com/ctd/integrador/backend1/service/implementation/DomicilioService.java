@@ -27,7 +27,7 @@ public class DomicilioService implements IDomicilioService {
 
 
     @Override
-    public DomicilioDTO buscarPorId(Integer id) throws ResourceNotFoundException {
+    public DomicilioDTO buscarPorId(Long id) throws ResourceNotFoundException {
         Optional<Domicilio> domicilioBuscado = Optional.of(repository.findById(id).get());
         if(domicilioBuscado.isPresent()) {
             DomicilioDTO domicilioDTO = mapper.convertValue(domicilioBuscado, DomicilioDTO.class);
@@ -50,7 +50,7 @@ public class DomicilioService implements IDomicilioService {
     }
 
     @Override
-    public void eliminarDomicilio(Integer id) throws ResourceNotFoundException {
+    public void eliminarDomicilio(Long id) throws ResourceNotFoundException {
         Optional<Domicilio> domicilioBuscado = Optional.of(repository.findById(id).get());
         if(domicilioBuscado.isPresent()) {
             repository.deleteById(id);
@@ -60,7 +60,7 @@ public class DomicilioService implements IDomicilioService {
     }
 
     @Override
-    public DomicilioDTO actualizarDomicilio(Integer id, DomicilioDTO domicilioDTO) throws ResourceNotFoundException {
+    public DomicilioDTO actualizarDomicilio(Long id, DomicilioDTO domicilioDTO) throws ResourceNotFoundException {
         Optional<Domicilio> domicilioBuscado = Optional.of(repository.findById(id).get());
         if(domicilioBuscado.isPresent()) {
             Domicilio domicilio = mapper.convertValue(domicilioDTO, Domicilio.class);

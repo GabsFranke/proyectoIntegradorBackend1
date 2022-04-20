@@ -28,7 +28,7 @@ public class TurnoService implements ITurnoService {
 
 
     @Override
-    public TurnoDTO buscarPorId(Integer id) throws ResourceNotFoundException {
+    public TurnoDTO buscarPorId(Long id) throws ResourceNotFoundException {
         Optional<Turno> turnoBuscado = Optional.of(repository.findById(id).get());
         if (turnoBuscado.isPresent()) {
             TurnoDTO turnoDTO = mapper.convertValue(turnoBuscado, TurnoDTO.class);
@@ -51,7 +51,7 @@ public class TurnoService implements ITurnoService {
     }
 
     @Override
-    public void eliminarTurno(Integer id) throws ResourceNotFoundException {
+    public void eliminarTurno(Long id) throws ResourceNotFoundException {
         Optional<Turno> turnoBuscado = Optional.of(repository.findById(id).get());
         if (turnoBuscado.isPresent()) {
         repository.deleteById(id);

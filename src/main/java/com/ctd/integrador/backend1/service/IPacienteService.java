@@ -6,10 +6,10 @@ import com.ctd.integrador.backend1.model.PacienteDTO;
 import java.util.Set;
 
 public interface IPacienteService {
-    PacienteDTO buscarPorId(Integer id) throws ResourceNotFoundException;
+    PacienteDTO buscarPorId(Long id) throws ResourceNotFoundException;
     Set<PacienteDTO> buscarTodos();
-    void eliminarPaciente(Integer id) throws ResourceNotFoundException;
-    PacienteDTO actualizarPaciente(Integer id, PacienteDTO pacienteDTO) throws ResourceNotFoundException;
+    void eliminarPaciente(Long id) throws ResourceNotFoundException;
+    PacienteDTO actualizarPaciente(Long id, PacienteDTO pacienteDTO) throws ResourceNotFoundException;
     PacienteDTO agregarPaciente(PacienteDTO pacienteDTO);
     PacienteDTO findPacienteByDni(String dni) throws ResourceNotFoundException;
 }

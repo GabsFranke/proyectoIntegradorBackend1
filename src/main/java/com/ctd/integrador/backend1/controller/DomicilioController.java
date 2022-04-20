@@ -26,7 +26,7 @@ public class DomicilioController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<DomicilioDTO> buscarPorId(@PathVariable Integer id) throws ResourceNotFoundException {
+    public ResponseEntity<DomicilioDTO> buscarPorId(@PathVariable Long id) throws ResourceNotFoundException {
         return ResponseEntity.ok(service.buscarPorId(id));
     }
 
@@ -36,13 +36,13 @@ public class DomicilioController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> actualizarDomicilio(@PathVariable Integer id, @RequestBody DomicilioDTO domicilioDTO) throws ResourceNotFoundException {
+    public ResponseEntity<?> actualizarDomicilio(@PathVariable Long id, @RequestBody DomicilioDTO domicilioDTO) throws ResourceNotFoundException {
         service.actualizarDomicilio(id, domicilioDTO);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> borrarDomicilio(@PathVariable Integer id) throws ResourceNotFoundException {
+    public ResponseEntity<?> borrarDomicilio(@PathVariable Long id) throws ResourceNotFoundException {
         service.eliminarDomicilio(id);
         return ResponseEntity.ok(HttpStatus.OK);
     }

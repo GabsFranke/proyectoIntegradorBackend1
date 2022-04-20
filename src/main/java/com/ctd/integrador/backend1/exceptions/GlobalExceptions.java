@@ -7,11 +7,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
 public class GlobalExceptions {
-
     @ExceptionHandler({ResourceNotFoundException.class})
-    public ResponseEntity<String> procesarErrorNotFound(ResourceNotFoundException ex) {
+    public ResponseEntity<String> procesarErrorNotFound(ResourceNotFoundException ex){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
-
 }
 

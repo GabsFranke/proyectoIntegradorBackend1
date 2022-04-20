@@ -29,8 +29,8 @@ public class OdontologoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<OdontologoDTO> buscarPorId(@PathVariable Integer id) throws ResourceNotFoundException {
-        return ResponseEntity.ok(service.buscarPorId(id));
+    public ResponseEntity<OdontologoDTO> buscarPorId(@PathVariable Long id) throws ResourceNotFoundException {
+        return ResponseEntity.ok(service.buscarPorId(Long.valueOf(id)));
     }
 
     @PostMapping
@@ -45,13 +45,13 @@ public class OdontologoController {
 //    }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> actualizarOdontologo(@PathVariable Integer id, @RequestBody OdontologoDTO odontologoDTO) throws ResourceNotFoundException {
+    public ResponseEntity<?> actualizarOdontologo(@PathVariable Long id, @RequestBody OdontologoDTO odontologoDTO) throws ResourceNotFoundException {
         service.actualizarOdontologo(id, odontologoDTO);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> borrarOdontologo(@PathVariable Integer id) throws ResourceNotFoundException {
+    public ResponseEntity<?> borrarOdontologo(@PathVariable Long id) throws ResourceNotFoundException {
         service.eliminarOdontologo(id);
         return ResponseEntity.ok(HttpStatus.OK);
     }

@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface IOdontologoRepository extends JpaRepository<Odontologo,Integer> {
+public interface IOdontologoRepository extends JpaRepository<Odontologo,Long> {
 
     @Query("select o from Odontologo o where o.apellido = ?1")
     Odontologo findByLastName(String apellido);

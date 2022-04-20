@@ -6,10 +6,10 @@ import com.ctd.integrador.backend1.model.OdontologoDTO;
 import java.util.Set;
 
 public interface IOdontologoService {
-    OdontologoDTO buscarPorId(Integer id) throws ResourceNotFoundException;
+    OdontologoDTO buscarPorId(Long id) throws ResourceNotFoundException;
     Set<OdontologoDTO> buscarTodos();
-    void eliminarOdontologo(Integer id) throws ResourceNotFoundException;
-    OdontologoDTO actualizarOdontologo(Integer id, OdontologoDTO odontologoDTO) throws ResourceNotFoundException;
+    void eliminarOdontologo(Long id) throws ResourceNotFoundException;
+    OdontologoDTO actualizarOdontologo(Long id, OdontologoDTO odontologoDTO) throws ResourceNotFoundException;
     OdontologoDTO agregarOdontologo(OdontologoDTO odontologoDTO);
     OdontologoDTO findByLastName(String apellido) throws ResourceNotFoundException;
 }
