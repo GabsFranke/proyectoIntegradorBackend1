@@ -9,10 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class TurnoService implements ITurnoService {
@@ -28,13 +25,13 @@ public class TurnoService implements ITurnoService {
 
 
     @Override
-    public TurnoDTO buscarPorId(Long id) throws ResourceNotFoundException {
+    public TurnoDTO buscarPorId(Long id) throws NoSuchElementException {
         Optional<Turno> turnoBuscado = Optional.of(repository.findById(id).get());
         if (turnoBuscado.isPresent()) {
             TurnoDTO turnoDTO = mapper.convertValue(turnoBuscado, TurnoDTO.class);
             return turnoDTO;
         } else {
-            throw new ResourceNotFoundException("No se encontro el turno.");
+            throw new NoSuchElementException("No se encontro el turno.");
         }
     }
 
@@ -54,7 +51,7 @@ public class TurnoService implements ITurnoService {
     public void eliminarTurno(Long id) throws ResourceNotFoundException {
         Optional<Turno> turnoBuscado = Optional.of(repository.findById(id).get());
         if (turnoBuscado.isPresent()) {
-        repository.deleteById(id);
+            repository.deleteById(id);
         } else {
             throw new ResourceNotFoundException("No se encontro el turno.");
         }

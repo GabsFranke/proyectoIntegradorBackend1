@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Set;
 
 @Entity
@@ -20,7 +20,7 @@ public class Paciente {
     private String nombre;
     private String apellido;
     private String dni;
-    private Date fechaIngreso;
+    private LocalDate fechaIngreso;
 
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
     private Set<Domicilio> domicilios;

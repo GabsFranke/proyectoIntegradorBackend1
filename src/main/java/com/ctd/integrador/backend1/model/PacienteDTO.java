@@ -3,7 +3,7 @@ package com.ctd.integrador.backend1.model;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Set;
 
 @Setter @Getter
@@ -12,6 +12,6 @@ public class PacienteDTO {
     private String nombre;
     private String apellido;
     private String dni;
-    private Date fechaIngreso;
+    private LocalDate fechaIngreso;
     private Set<DomicilioDTO> domicilios;
 }
