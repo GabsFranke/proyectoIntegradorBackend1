@@ -135,3 +135,19 @@ insert into odontologo (apellido, matricula, nombre, id) values (?, ?, ?, ?) [23
 [2022-04-20 01:34:57] [ ERROR] [GlobalExceptionHandler:17] No value present
 [2022-04-20 01:35:01] [ ERROR] [GlobalExceptionHandler:17] 
 [2022-04-20 01:35:16] [ ERROR] [GlobalExceptionHandler:17] No value present
+[2022-04-20 18:01:07] [ ERROR] [GlobalExceptionHandler:17] 
+[2022-04-20 20:02:40] [ ERROR] [GlobalExceptionHandler:19] No class com.ctd.integrador.backend1.persistence.entity.Turno entity with id 2 exists!
+[2022-04-20 20:08:02] [ ERROR] [GlobalExceptionHandler:19] No class com.ctd.integrador.backend1.persistence.entity.Turno entity with id 1 exists!
+[2022-04-20 20:11:38] [ ERROR] [GlobalExceptionHandler:19] No class com.ctd.integrador.backend1.persistence.entity.Turno entity with id 1 exists!
+[2022-04-20 20:16:03] [ ERROR] [GlobalExceptionHandler:19] No class com.ctd.integrador.backend1.persistence.entity.Turno entity with id 1 exists!
+[2022-04-20 20:16:18] [ ERROR] [GlobalExceptionHandler:19] No class com.ctd.integrador.backend1.persistence.entity.Turno entity with id 1 exists!
+[2022-04-20 20:18:07] [ ERROR] [GlobalExceptionHandler:19] No value present
+[2022-04-20 20:18:11] [ ERROR] [GlobalExceptionHandler:19] No value present
+[2022-04-20 20:18:26] [ ERROR] [GlobalExceptionHandler:19] No class com.ctd.integrador.backend1.persistence.entity.Turno entity with id 1 exists!
+[2022-04-20 20:21:22] [ ERROR] [GlobalExceptionHandler:19] No class com.ctd.integrador.backend1.persistence.entity.Turno entity with id 1 exists!
+[2022-04-20 20:21:26] [ ERROR] [GlobalExceptionHandler:19] No class com.ctd.integrador.backend1.persistence.entity.Turno entity with id 1222 exists!
+[2022-04-20 20:21:34] [ ERROR] [GlobalExceptionHandler:19] No class com.ctd.integrador.backend1.persistence.entity.Turno entity with id 1 exists!
+[2022-04-20 20:21:52] [ ERROR] [GlobalExceptionHandler:19] No value present
+[2022-04-20 20:22:10] [ ERROR] [GlobalExceptionHandler:19] No class com.ctd.integrador.backend1.persistence.entity.Turno entity with id 1 exists!
+[2022-04-20 20:32:50] [ ERROR] [GlobalExceptionHandler:19] No value present
+[2022-04-20 20:48:35] [ ERROR] [GlobalExceptionHandler:19] No value present

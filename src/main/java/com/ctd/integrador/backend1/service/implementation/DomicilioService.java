@@ -28,7 +28,7 @@ public class DomicilioService implements IDomicilioService {
 
     @Override
     public DomicilioDTO buscarPorId(Long id) throws ResourceNotFoundException {
-        Optional<Domicilio> domicilioBuscado = Optional.of(repository.findById(id).get());
+        Optional<Domicilio> domicilioBuscado = repository.findById(id);
         if(domicilioBuscado.isPresent()) {
             DomicilioDTO domicilioDTO = mapper.convertValue(domicilioBuscado, DomicilioDTO.class);
             return domicilioDTO;
@@ -51,8 +51,7 @@ public class DomicilioService implements IDomicilioService {
 
     @Override
     public void eliminarDomicilio(Long id) throws ResourceNotFoundException {
-        Optional<Domicilio> domicilioBuscado = Optional.of(repository.findById(id).get());
-        if(domicilioBuscado.isPresent()) {
+        if(repository.findById(id).isPresent()) {
             repository.deleteById(id);
         } else {
             throw new ResourceNotFoundException("No se encontro el odontologo con el id solicitado.");
@@ -61,7 +60,7 @@ public class DomicilioService implements IDomicilioService {
 
     @Override
     public DomicilioDTO actualizarDomicilio(Long id, DomicilioDTO domicilioDTO) throws ResourceNotFoundException {
-        Optional<Domicilio> domicilioBuscado = Optional.of(repository.findById(id).get());
+        Optional<Domicilio> domicilioBuscado = repository.findById(id);
         if(domicilioBuscado.isPresent()) {
             Domicilio domicilio = mapper.convertValue(domicilioDTO, Domicilio.class);
             domicilio.setId(Long.valueOf(id));

@@ -25,7 +25,7 @@ public class TurnoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TurnoDTO> buscarPorId(@PathVariable Long id) throws NoSuchElementException {
+    public ResponseEntity<TurnoDTO> buscarPorId(@PathVariable Long id) throws ResourceNotFoundException {
         return ResponseEntity.ok(service.buscarPorId(id));
     }
 
@@ -41,8 +41,8 @@ public class TurnoController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> borrarTurno(@PathVariable Long id) throws ResourceNotFoundException {
+    public ResponseEntity<String> borrarTurno(@PathVariable Long id) throws ResourceNotFoundException {
         service.eliminarTurno(id);
-        return ResponseEntity.ok(HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Turno eliminado");
     }
 }

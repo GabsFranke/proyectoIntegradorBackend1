@@ -1,4 +1,4 @@
-package com.ctd.integrador.backend1;
+package com.ctd.integrador.backend1.exceptions;
 
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
@@ -15,7 +15,16 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> respuestaErrores(Exception e, WebRequest w) {
         logger.error(e.getMessage());
-        return new ResponseEntity("Error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @ExceptionHandler({ResourceNotFoundException.class})
+    public ResponseEntity<String> procesarErrorNotFound(ResourceNotFoundException ex){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
+
+//    @ExceptionHandler({NoSuchElementException.class})
+//    public ResponseEntity<String> procesarErrorNoElement(NoSuchElementException ex){
+//        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+//    }
 }

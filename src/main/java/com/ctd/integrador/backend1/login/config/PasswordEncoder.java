@@ -1,4 +1,4 @@
-package com.ctd.integrador.backend1.login.security;
+package com.ctd.integrador.backend1.login.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

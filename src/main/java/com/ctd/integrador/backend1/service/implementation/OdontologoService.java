@@ -29,15 +29,13 @@ public class OdontologoService implements IOdontologoService {
 
     @Override
     public OdontologoDTO buscarPorId(Long id) throws ResourceNotFoundException {
-
-        Optional<Odontologo> odontologoBuscado = Optional.of(repository.findById((id)).get());
+        Optional<Odontologo> odontologoBuscado = repository.findById(id);
         if(odontologoBuscado.isPresent()) {
             OdontologoDTO odontologoDTO = mapper.convertValue(odontologoBuscado, OdontologoDTO.class);
             return odontologoDTO;
         } else {
             throw new ResourceNotFoundException("No se encontro el odontologo solicitado.");
         }
-
     }
 
     @Override
@@ -55,8 +53,7 @@ public class OdontologoService implements IOdontologoService {
 
     @Override
     public void eliminarOdontologo(Long id) throws ResourceNotFoundException {
-        Optional<Odontologo> odontologoBuscado = Optional.of(repository.findById(id).get());
-        if(odontologoBuscado.isPresent()) {
+        if(repository.findById(id).isPresent()) {
             repository.deleteById(id);
         } else {
             throw new ResourceNotFoundException("No se encontro el odontologo solicitado.");
@@ -65,7 +62,7 @@ public class OdontologoService implements IOdontologoService {
 
     @Override
     public OdontologoDTO actualizarOdontologo(Long id, OdontologoDTO odontologoDTO) throws ResourceNotFoundException {
-        Optional<Odontologo> odontologoBuscado = Optional.of(repository.findById(id).get());
+        Optional<Odontologo> odontologoBuscado = repository.findById(id);
         if(odontologoBuscado.isPresent()) {
             Odontologo odontologo = mapper.convertValue(odontologoDTO, Odontologo.class);
             odontologo.setId(Long.valueOf(id));
@@ -86,8 +83,8 @@ public class OdontologoService implements IOdontologoService {
 
     @Override
     public OdontologoDTO findByLastName(String apellido) throws ResourceNotFoundException {
-        Optional<Odontologo> odontologoBuscado = Optional.of(repository.findByLastName(apellido));
-        if(odontologoBuscado.isPresent()) {
+        Odontologo odontologoBuscado = repository.findByLastName(apellido);
+        if(odontologoBuscado != null) {
             OdontologoDTO odontologoDTO = mapper.convertValue(odontologoBuscado, OdontologoDTO.class);
             return odontologoDTO;
         } else {

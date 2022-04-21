@@ -30,18 +30,13 @@ public class PacienteService implements IPacienteService {
 
     @Override
     public PacienteDTO buscarPorId(Long id) throws ResourceNotFoundException {
-         Paciente paciente = repository.findById(id).get();
-         PacienteDTO pacienteDTO = mapper.convertValue(paciente, PacienteDTO.class);
-         return pacienteDTO;
-
-//        Optional<Paciente> pacienteBuscado = Optional.of(repository.findById(id).get());
-//        if(pacienteBuscado.isPresent()) {
-//            PacienteDTO pacienteDTO = mapper.convertValue(pacienteBuscado, PacienteDTO.class);
-//            return pacienteDTO;
-//        } else {
-//            throw new ResourceNotFoundException("No existe el paciente solicitado.");
-//        }
-
+        Optional<Paciente> pacienteBuscado = repository.findById(id);
+        if(pacienteBuscado.isPresent()) {
+            PacienteDTO pacienteDTO = mapper.convertValue(pacienteBuscado, PacienteDTO.class);
+            return pacienteDTO;
+        } else {
+            throw new ResourceNotFoundException("No existe el paciente solicitado.");
+        }
     }
 
     @Override
@@ -68,7 +63,7 @@ public class PacienteService implements IPacienteService {
 
     @Override
     public PacienteDTO actualizarPaciente(Long id, PacienteDTO pacienteDTO) throws ResourceNotFoundException {
-        Optional<Paciente> pacienteBuscado = Optional.of(repository.findById(id).get());
+        Optional<Paciente> pacienteBuscado = repository.findById(id);
         if(pacienteBuscado.isPresent()) {
             Paciente paciente = mapper.convertValue(pacienteDTO, Paciente.class);
             paciente.setId(Long.valueOf(id));
@@ -92,8 +87,8 @@ public class PacienteService implements IPacienteService {
 
     @Override
     public PacienteDTO findPacienteByDni(String dni) throws ResourceNotFoundException {
-        Optional<Paciente> pacienteBuscado = Optional.of(repository.findPacienteByDni(dni));
-        if(pacienteBuscado.isPresent()) {
+        Paciente pacienteBuscado = repository.findPacienteByDni(dni);
+        if(pacienteBuscado != null) {
             PacienteDTO pacienteDTO = mapper.convertValue(pacienteBuscado, PacienteDTO.class);
             return pacienteDTO;
         } else {

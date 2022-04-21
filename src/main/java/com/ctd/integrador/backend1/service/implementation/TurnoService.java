@@ -25,13 +25,13 @@ public class TurnoService implements ITurnoService {
 
 
     @Override
-    public TurnoDTO buscarPorId(Long id) throws NoSuchElementException {
-        Optional<Turno> turnoBuscado = Optional.of(repository.findById(id).get());
+    public TurnoDTO buscarPorId(Long id) throws ResourceNotFoundException {
+        Optional<Turno> turnoBuscado = repository.findById(id);
         if (turnoBuscado.isPresent()) {
             TurnoDTO turnoDTO = mapper.convertValue(turnoBuscado, TurnoDTO.class);
             return turnoDTO;
         } else {
-            throw new NoSuchElementException("No se encontro el turno.");
+            throw new ResourceNotFoundException("No se encontro el turno.");
         }
     }
 
@@ -49,18 +49,16 @@ public class TurnoService implements ITurnoService {
 
     @Override
     public void eliminarTurno(Long id) throws ResourceNotFoundException {
-        Optional<Turno> turnoBuscado = Optional.of(repository.findById(id).get());
-        if (turnoBuscado.isPresent()) {
+        if(repository.findById(id).isPresent()) {
             repository.deleteById(id);
-        } else {
-            throw new ResourceNotFoundException("No se encontro el turno.");
+        }  else {
+            throw new ResourceNotFoundException("No existe el turno solicitado.");
         }
-
     }
 
     @Override
     public TurnoDTO actualizarTurno(TurnoDTO turnoDTO) throws ResourceNotFoundException {
-        Optional<Turno> turnoBuscado = Optional.of(repository.findById(turnoDTO.getId()).get());
+        Optional<Turno> turnoBuscado = repository.findById(turnoDTO.getId());
         if (turnoBuscado.isPresent()) {
             Turno turno = mapper.convertValue(turnoDTO, Turno.class);
             Turno turnoGuardado = repository.save(turno);
@@ -78,4 +76,5 @@ public class TurnoService implements ITurnoService {
         TurnoDTO turnoDTOGuardado = mapper.convertValue(turnoGuardado, TurnoDTO.class);
         return turnoDTOGuardado;
     }
+
 }

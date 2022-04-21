@@ -149,13 +149,13 @@ class IntegradorBackend1ApplicationTests {
 
 
 		Long idFalso = 123L;
-		Assertions.assertThrows(NoSuchElementException.class, () -> {
+		Assertions.assertThrows(ResourceNotFoundException.class, () -> {
 			turnoService.buscarPorId(idFalso);
 		});
-		Assertions.assertThrows(NoSuchElementException.class, () -> {
+		Assertions.assertThrows(ResourceNotFoundException.class, () -> {
 			odontologoService.buscarPorId(idFalso);
 		});
-		Assertions.assertThrows(NoSuchElementException.class, () -> {
+		Assertions.assertThrows(ResourceNotFoundException.class, () -> {
 			pacienteService.buscarPorId(idFalso);
 		});
 
@@ -174,5 +174,8 @@ class IntegradorBackend1ApplicationTests {
 			pacienteService.eliminarPaciente(finalPaciente.getId());
 		});
 	}
+
+
+
 
 }
