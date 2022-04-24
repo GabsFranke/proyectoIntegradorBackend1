@@ -13,13 +13,13 @@ public class GlobalExceptionHandler {
     private static final Logger logger = Logger.getLogger(GlobalExceptionHandler.class);
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<?> respuestaErrores(Exception e, WebRequest w) {
-        logger.error(e.getMessage());
+    public ResponseEntity<?> errorResponse(Exception e, WebRequest w) {
+        logger.error((e.getMessage() + " -- " + w.getDescription(true).toString()));
         return new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler({ResourceNotFoundException.class})
-    public ResponseEntity<String> procesarErrorNotFound(ResourceNotFoundException ex){
+    public ResponseEntity<String> processErrorNotFound(ResourceNotFoundException ex){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
 

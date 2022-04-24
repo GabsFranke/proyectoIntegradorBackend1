@@ -1,13 +1,13 @@
 package com.ctd.integrador.backend1;
 
 import com.ctd.integrador.backend1.exceptions.ResourceNotFoundException;
-import com.ctd.integrador.backend1.model.DomicilioDTO;
-import com.ctd.integrador.backend1.model.OdontologoDTO;
-import com.ctd.integrador.backend1.model.PacienteDTO;
-import com.ctd.integrador.backend1.model.TurnoDTO;
-import com.ctd.integrador.backend1.service.IOdontologoService;
-import com.ctd.integrador.backend1.service.IPacienteService;
-import com.ctd.integrador.backend1.service.ITurnoService;
+import com.ctd.integrador.backend1.model.AddressDTO;
+import com.ctd.integrador.backend1.model.AppointmentDTO;
+import com.ctd.integrador.backend1.model.DentistDTO;
+import com.ctd.integrador.backend1.model.PatientDTO;
+import com.ctd.integrador.backend1.service.IDentistService;
+import com.ctd.integrador.backend1.service.IPatientService;
+import com.ctd.integrador.backend1.service.IAppointmentService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,150 +25,148 @@ class IntegradorBackend1ApplicationTests {
 	}
 
 	@Autowired
-	private ITurnoService turnoService;
+	private IAppointmentService appointmentService;
 	@Autowired
-	private IOdontologoService odontologoService;
+	private IDentistService dentistService;
 	@Autowired
-	private IPacienteService pacienteService;
+	private IPatientService patientService;
 
 
-	private PacienteDTO getPaciente() {
-		DomicilioDTO domicilioFalso = new DomicilioDTO();
-		domicilioFalso.setCalle("Calle Falsa");
-		domicilioFalso.setNumero("123");
-		domicilioFalso.setLocalidad("Springfield");
-		domicilioFalso.setProvincia("Los Simpson");
-		Set<DomicilioDTO> domicilios = new HashSet<>();
-		domicilios.add(domicilioFalso);
+	private PatientDTO getPatient() {
+		AddressDTO fakeAddress = new AddressDTO();
+		fakeAddress.setStreet("Calle Falsa");
+		fakeAddress.setNumber("123");
+		fakeAddress.setCity("Springfield");
+		fakeAddress.setState("Los Simpson");
+		Set<AddressDTO> addresses = new HashSet<>();
+		addresses.add(fakeAddress);
 
-		PacienteDTO paciente = new PacienteDTO();
-		paciente.setNombre("Muchas");
-		paciente.setApellido("Caries");
-		paciente.setDni("12345678");
-		paciente.setFechaIngreso(LocalDate.parse("2011-01-11"));
-		paciente.setDomicilios(domicilios);
+		PatientDTO patientDTO = new PatientDTO();
+		patientDTO.setName("Muchas");
+		patientDTO.setLastname("Caries");
+		patientDTO.setDni("12345678");
+		patientDTO.setRegistrationDate(LocalDate.parse("2011-01-11"));
+		patientDTO.setAddresses(addresses);
 
-		return paciente;
+		return patientDTO;
 	}
 
-	private OdontologoDTO getOdontologo() {
-		OdontologoDTO odontologo = new OdontologoDTO();
-		odontologo.setNombre("Dr.");
-		odontologo.setApellido("Muelitas");
-		odontologo.setMatricula(1337);
+	private DentistDTO getDentist() {
+		DentistDTO dentistDTO = new DentistDTO();
+		dentistDTO.setName("Dr.");
+		dentistDTO.setLastname("Muelitas");
+		dentistDTO.setRegistrationNumber(1337);
 
-		return odontologo;
+		return dentistDTO;
 	}
 
 	@Test
-	void testCrearPaciente() {
-		PacienteDTO paciente = pacienteService.agregarPaciente(getPaciente());
-		Assertions.assertNotNull(paciente);
-		Assertions.assertNotNull(paciente.getId());
-		Assertions.assertEquals(paciente.getNombre(), "Muchas");
-		Assertions.assertEquals(paciente.getApellido(), "Caries");
-		Assertions.assertEquals(paciente.getDni(), "12345678");
-		Assertions.assertEquals(paciente.getFechaIngreso(), LocalDate.parse("2011-01-11"));
-		Assertions.assertEquals(paciente.getDomicilios().size(), 1);
-		Assertions.assertEquals(paciente.getDomicilios().iterator().next().getCalle(), "Calle Falsa");
-		Assertions.assertEquals(paciente.getDomicilios().iterator().next().getNumero(), "123");
-		Assertions.assertEquals(paciente.getDomicilios().iterator().next().getLocalidad(), "Springfield");
-		Assertions.assertEquals(paciente.getDomicilios().iterator().next().getProvincia(), "Los Simpson");
+	void testCreatePatient() {
+		PatientDTO patient = patientService.addPatient(getPatient());
+		Assertions.assertNotNull(patient);
+		Assertions.assertNotNull(patient.getId());
+		Assertions.assertEquals(patient.getName(), "Muchas");
+		Assertions.assertEquals(patient.getLastname(), "Caries");
+		Assertions.assertEquals(patient.getDni(), "12345678");
+		Assertions.assertEquals(patient.getRegistrationDate(), LocalDate.parse("2011-01-11"));
+		Assertions.assertEquals(patient.getAddresses().size(), 1);
+		Assertions.assertEquals(patient.getAddresses().iterator().next().getStreet(), "Calle Falsa");
+		Assertions.assertEquals(patient.getAddresses().iterator().next().getNumber(), "123");
+		Assertions.assertEquals(patient.getAddresses().iterator().next().getCity(), "Springfield");
+		Assertions.assertEquals(patient.getAddresses().iterator().next().getState(), "Los Simpson");
 	}
 
 	@Test
 	void testCrearOdontologo() {
-		OdontologoDTO odontologo = odontologoService.agregarOdontologo(getOdontologo());
-		Assertions.assertNotNull(odontologo);
-		Assertions.assertNotNull(odontologo.getId());
-		Assertions.assertEquals(odontologo.getNombre(), "Dr.");
-		Assertions.assertEquals(odontologo.getApellido(), "Muelitas");
-		Assertions.assertEquals(odontologo.getMatricula(), 1337);
+		DentistDTO dentistDTO = dentistService.addDentist(getDentist());
+		Assertions.assertNotNull(dentistDTO);
+		Assertions.assertNotNull(dentistDTO.getId());
+		Assertions.assertEquals(dentistDTO.getName(), "Dr.");
+		Assertions.assertEquals(dentistDTO.getLastname(), "Muelitas");
+		Assertions.assertEquals(dentistDTO.getRegistrationNumber(), 1337);
 	}
 
 
 	@Test
 	void testCrearTurno() {
-		OdontologoDTO odontologo = odontologoService.agregarOdontologo(getOdontologo());
-		PacienteDTO paciente = pacienteService.agregarPaciente(getPaciente());
-		TurnoDTO turno = new TurnoDTO();
-		turno.setFecha(LocalDate.parse("2011-11-11"));
-		turno.setOdontologo(odontologo);
-		turno.setPaciente(paciente);
-		turno = turnoService.agregarTurno(turno);
-		Assertions.assertNotNull(turno);
-		Assertions.assertNotNull(turno.getId());
-		Assertions.assertEquals(turno.getFecha(), LocalDate.parse("2011-11-11"));
-		Assertions.assertNotNull(turno.getOdontologo().getId());
-		Assertions.assertEquals(turno.getOdontologo().getNombre(), "Dr.");
-		Assertions.assertEquals(turno.getOdontologo().getApellido(), "Muelitas");
-		Assertions.assertEquals(turno.getOdontologo().getMatricula(), 1337);
-		Assertions.assertNotNull(turno.getPaciente().getId());
-		Assertions.assertEquals(turno.getPaciente().getNombre(), "Muchas");
-		Assertions.assertEquals(turno.getPaciente().getApellido(), "Caries");
+		DentistDTO dentistDTO = dentistService.addDentist(getDentist());
+		PatientDTO patientDTO = patientService.addPatient(getPatient());
+		AppointmentDTO appointment = new AppointmentDTO();
+		appointment.setDate(LocalDate.parse("2011-11-11"));
+		appointment.setDentist(dentistDTO);
+		appointment.setPatient(patientDTO);
+		appointment = appointmentService.addAppointment(appointment);
+		Assertions.assertNotNull(appointment);
+		Assertions.assertNotNull(appointment.getId());
+		Assertions.assertEquals(appointment.getDate(), LocalDate.parse("2011-11-11"));
+		Assertions.assertNotNull(appointment.getDentist().getId());
+		Assertions.assertEquals(appointment.getDentist().getName(), "Dr.");
+		Assertions.assertEquals(appointment.getDentist().getLastname(), "Muelitas");
+		Assertions.assertEquals(appointment.getDentist().getRegistrationNumber(), 1337);
+		Assertions.assertNotNull(appointment.getPatient().getId());
+		Assertions.assertEquals(appointment.getPatient().getName(), "Muchas");
+		Assertions.assertEquals(appointment.getPatient().getLastname(), "Caries");
 		// Propiedades ignoradas en el dto
-		Assertions.assertNull(turno.getPaciente().getDni());
-		Assertions.assertNull(turno.getPaciente().getFechaIngreso());
-		Assertions.assertNull(turno.getPaciente().getDomicilios());
+		Assertions.assertNull(appointment.getPatient().getDni());
+		Assertions.assertNull(appointment.getPatient().getRegistrationDate());
+		Assertions.assertNull(appointment.getPatient().getAddresses());
 	}
 
 	@Test
-	void testAgregarDomicilioAPaciente() throws ResourceNotFoundException {
-		PacienteDTO paciente = pacienteService.agregarPaciente(getPaciente());
-		DomicilioDTO domicilioFalso2 = new DomicilioDTO();
-		domicilioFalso2.setCalle("Avenida Siempre Viva");
-		domicilioFalso2.setNumero("1234");
-		domicilioFalso2.setLocalidad("Springfield");
-		domicilioFalso2.setProvincia("Los Simpson");
-		paciente.getDomicilios().add(domicilioFalso2);
-		paciente = pacienteService.actualizarPaciente(paciente.getId(), paciente);
-		Assertions.assertNotNull(paciente);
-		Assertions.assertEquals(paciente.getDomicilios().size(), 2);
+	void testAddAddressToPatient() throws ResourceNotFoundException {
+		PatientDTO patient = patientService.addPatient(getPatient());
+		AddressDTO fakeAddress = new AddressDTO();
+		fakeAddress.setStreet("Avenida Siempre Viva");
+		fakeAddress.setNumber("1234");
+		fakeAddress.setCity("Springfield");
+		fakeAddress.setState("Los Simpson");
+		patient.getAddresses().add(fakeAddress);
+		patient = patientService.updatePatient(patient.getId(), patient);
+		Assertions.assertNotNull(patient);
+		Assertions.assertEquals(patient.getAddresses().size(), 2);
 	}
 
 	@Test
-	public void testIntegradorAgregarEliminarBuscarYExceptions() throws ResourceNotFoundException {
-		OdontologoDTO odontologo = odontologoService.agregarOdontologo(getOdontologo());
-		Assertions.assertNotNull(odontologo);
+	public void testAdd_Delete_Find_Exceptions() throws ResourceNotFoundException {
+		DentistDTO dentistDTO = dentistService.addDentist(getDentist());
+		Assertions.assertNotNull(dentistDTO);
 
-		PacienteDTO paciente = pacienteService.agregarPaciente(getPaciente());
-		Assertions.assertNotNull(paciente);
+		PatientDTO patientDTO = patientService.addPatient(getPatient());
+		Assertions.assertNotNull(patientDTO);
 
-		TurnoDTO turno = new TurnoDTO();
-		turno.setFecha(LocalDate.parse("2020-01-01"));
-		turno.setPaciente(paciente);
-		turno.setOdontologo(odontologo);
-		turno = turnoService.agregarTurno(turno);
-		Assertions.assertNotNull(turno.getId());
-		Assertions.assertNotNull(turno.getOdontologo().getId());
-		Assertions.assertNotNull(turno.getPaciente().getId());
+		AppointmentDTO appointment = new AppointmentDTO();
+		appointment.setDate(LocalDate.parse("2020-01-01"));
+		appointment.setPatient(patientDTO);
+		appointment.setDentist(dentistDTO);
+		appointment = appointmentService.addAppointment(appointment);
+		Assertions.assertNotNull(appointment.getId());
+		Assertions.assertNotNull(appointment.getDentist().getId());
+		Assertions.assertNotNull(appointment.getPatient().getId());
 
 
 
-		Long idFalso = 123L;
+		Long fakeId = 123L;
 		Assertions.assertThrows(ResourceNotFoundException.class, () -> {
-			turnoService.buscarPorId(idFalso);
-		});
-		Assertions.assertThrows(ResourceNotFoundException.class, () -> {
-			odontologoService.buscarPorId(idFalso);
+			appointmentService.findById(fakeId);
 		});
 		Assertions.assertThrows(ResourceNotFoundException.class, () -> {
-			pacienteService.buscarPorId(idFalso);
+			dentistService.findById(fakeId);
+		});
+		Assertions.assertThrows(ResourceNotFoundException.class, () -> {
+			patientService.findById(fakeId);
 		});
 
 
 
-		TurnoDTO finalTurno = turno;
-		OdontologoDTO finalOdontologo = odontologo;
-		PacienteDTO finalPaciente = paciente;
+		AppointmentDTO finalAppointment = appointment;
 		Assertions.assertDoesNotThrow(() -> {
-			turnoService.eliminarTurno(finalTurno.getId());
+			appointmentService.deleteAppointment(finalAppointment.getId());
 		});
 		Assertions.assertDoesNotThrow(() -> {
-			odontologoService.eliminarOdontologo(finalOdontologo.getId());
+			dentistService.deleteDentist(dentistDTO.getId());
 		});
 		Assertions.assertDoesNotThrow(() -> {
-			pacienteService.eliminarPaciente(finalPaciente.getId());
+			patientService.deletePatient(patientDTO.getId());
 		});
 
 	}
