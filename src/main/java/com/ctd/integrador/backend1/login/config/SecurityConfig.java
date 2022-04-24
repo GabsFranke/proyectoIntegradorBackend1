@@ -22,10 +22,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userService);
-    }
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.userDetailsService(userService);
+//    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -45,17 +45,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
        http.headers().frameOptions().disable();
     }
 
-    @Override
-    @Bean
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
+//    @Override
+//    @Bean
+//    public AuthenticationManager authenticationManagerBean() throws Exception {
+//        return super.authenticationManagerBean();
+//    }
 
-    // Deprecado, no compila.
-//        @Bean
-//        public PasswordEncoder passwordEncoder() {
-//            return NoOpPasswordEncoder.getInstance();
-//        }
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(daoAuthenticationProvider());
+    }
 
     @Bean
     public DaoAuthenticationProvider daoAuthenticationProvider() {

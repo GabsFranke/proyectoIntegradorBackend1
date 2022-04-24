@@ -2,7 +2,9 @@ package com.ctd.integrador.backend1.service;
 
 import com.ctd.integrador.backend1.exceptions.ResourceNotFoundException;
 import com.ctd.integrador.backend1.model.OdontologoDTO;
+import com.ctd.integrador.backend1.model.TurnoDTO;
 
+import java.time.LocalDate;
 import java.util.Set;
 
 public interface IOdontologoService {
@@ -12,4 +14,6 @@ public interface IOdontologoService {
     OdontologoDTO actualizarOdontologo(Long id, OdontologoDTO odontologoDTO) throws ResourceNotFoundException;
     OdontologoDTO agregarOdontologo(OdontologoDTO odontologoDTO);
     OdontologoDTO findByLastName(String apellido) throws ResourceNotFoundException;
+    Set<TurnoDTO> findAppointmentByDateAndDrLastname(String apellido, String fecha);
+
 }

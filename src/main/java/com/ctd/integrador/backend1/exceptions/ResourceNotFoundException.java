@@ -5,8 +5,4 @@ public class ResourceNotFoundException extends Exception{
         super(mensaje);
     }
 
-//    public NoSuchElementException getNoSuchElementException(String mensaje){
-//        return new NoSuchElementException(mensaje);
-//    }
-
 }

@@ -14,4 +14,9 @@ public class PacienteDTO {
     private String dni;
     private LocalDate fechaIngreso;
     private Set<DomicilioDTO> domicilios;
+
 }
+
+
+
+

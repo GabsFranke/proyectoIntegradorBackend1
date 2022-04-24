@@ -15,7 +15,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
 import java.util.HashSet;
-import java.util.NoSuchElementException;
 import java.util.Set;
 
 @SpringBootTest
@@ -63,9 +62,9 @@ class IntegradorBackend1ApplicationTests {
 
 	@Test
 	void testCrearPaciente() {
-		PacienteDTO paciente = getPaciente();
-		paciente = pacienteService.agregarPaciente(paciente);
+		PacienteDTO paciente = pacienteService.agregarPaciente(getPaciente());
 		Assertions.assertNotNull(paciente);
+		Assertions.assertNotNull(paciente.getId());
 		Assertions.assertEquals(paciente.getNombre(), "Muchas");
 		Assertions.assertEquals(paciente.getApellido(), "Caries");
 		Assertions.assertEquals(paciente.getDni(), "12345678");
@@ -79,9 +78,9 @@ class IntegradorBackend1ApplicationTests {
 
 	@Test
 	void testCrearOdontologo() {
-		OdontologoDTO odontologo = getOdontologo();
-		odontologo = odontologoService.agregarOdontologo(odontologo);
+		OdontologoDTO odontologo = odontologoService.agregarOdontologo(getOdontologo());
 		Assertions.assertNotNull(odontologo);
+		Assertions.assertNotNull(odontologo.getId());
 		Assertions.assertEquals(odontologo.getNombre(), "Dr.");
 		Assertions.assertEquals(odontologo.getApellido(), "Muelitas");
 		Assertions.assertEquals(odontologo.getMatricula(), 1337);
@@ -90,20 +89,21 @@ class IntegradorBackend1ApplicationTests {
 
 	@Test
 	void testCrearTurno() {
-		OdontologoDTO odontologo = getOdontologo();
-		odontologo = odontologoService.agregarOdontologo(odontologo);
-		PacienteDTO paciente = getPaciente();
-		paciente = pacienteService.agregarPaciente(paciente);
+		OdontologoDTO odontologo = odontologoService.agregarOdontologo(getOdontologo());
+		PacienteDTO paciente = pacienteService.agregarPaciente(getPaciente());
 		TurnoDTO turno = new TurnoDTO();
 		turno.setFecha(LocalDate.parse("2011-11-11"));
 		turno.setOdontologo(odontologo);
 		turno.setPaciente(paciente);
 		turno = turnoService.agregarTurno(turno);
 		Assertions.assertNotNull(turno);
+		Assertions.assertNotNull(turno.getId());
 		Assertions.assertEquals(turno.getFecha(), LocalDate.parse("2011-11-11"));
+		Assertions.assertNotNull(turno.getOdontologo().getId());
 		Assertions.assertEquals(turno.getOdontologo().getNombre(), "Dr.");
 		Assertions.assertEquals(turno.getOdontologo().getApellido(), "Muelitas");
 		Assertions.assertEquals(turno.getOdontologo().getMatricula(), 1337);
+		Assertions.assertNotNull(turno.getPaciente().getId());
 		Assertions.assertEquals(turno.getPaciente().getNombre(), "Muchas");
 		Assertions.assertEquals(turno.getPaciente().getApellido(), "Caries");
 		// Propiedades ignoradas en el dto
@@ -114,8 +114,7 @@ class IntegradorBackend1ApplicationTests {
 
 	@Test
 	void testAgregarDomicilioAPaciente() throws ResourceNotFoundException {
-		PacienteDTO paciente = getPaciente();
-		paciente = pacienteService.agregarPaciente(paciente);
+		PacienteDTO paciente = pacienteService.agregarPaciente(getPaciente());
 		DomicilioDTO domicilioFalso2 = new DomicilioDTO();
 		domicilioFalso2.setCalle("Avenida Siempre Viva");
 		domicilioFalso2.setNumero("1234");
@@ -129,12 +128,10 @@ class IntegradorBackend1ApplicationTests {
 
 	@Test
 	public void testIntegradorAgregarEliminarBuscarYExceptions() throws ResourceNotFoundException {
-		OdontologoDTO odontologo = getOdontologo();
-		odontologo = odontologoService.agregarOdontologo(odontologo);
+		OdontologoDTO odontologo = odontologoService.agregarOdontologo(getOdontologo());
 		Assertions.assertNotNull(odontologo);
 
-		PacienteDTO paciente = getPaciente();
-		paciente = pacienteService.agregarPaciente(paciente);
+		PacienteDTO paciente = pacienteService.agregarPaciente(getPaciente());
 		Assertions.assertNotNull(paciente);
 
 		TurnoDTO turno = new TurnoDTO();
@@ -173,9 +170,7 @@ class IntegradorBackend1ApplicationTests {
 		Assertions.assertDoesNotThrow(() -> {
 			pacienteService.eliminarPaciente(finalPaciente.getId());
 		});
+
 	}
-
-
-
 
 }

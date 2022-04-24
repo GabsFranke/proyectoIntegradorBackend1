@@ -2,9 +2,12 @@ package com.ctd.integrador.backend1.service.implementation;
 
 import com.ctd.integrador.backend1.exceptions.ResourceNotFoundException;
 import com.ctd.integrador.backend1.model.PacienteDTO;
+import com.ctd.integrador.backend1.model.TurnoDTO;
 import com.ctd.integrador.backend1.persistence.entity.Domicilio;
 import com.ctd.integrador.backend1.persistence.entity.Paciente;
+import com.ctd.integrador.backend1.persistence.entity.Turno;
 import com.ctd.integrador.backend1.persistence.repository.IPacienteRepository;
+import com.ctd.integrador.backend1.persistence.repository.ITurnoRepository;
 import com.ctd.integrador.backend1.service.IPacienteService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,19 +21,22 @@ import java.util.Set;
 @Service
 public class PacienteService implements IPacienteService {
 
-    private IPacienteRepository repository;
+    private IPacienteRepository pacienteRepository;
     @Autowired
     ObjectMapper mapper;
 
     @Autowired
-    public void setRepository(IPacienteRepository repository) {
-        this.repository = repository;
+    public void setPacienteRepository(IPacienteRepository pacienteRepository) {
+        this.pacienteRepository = pacienteRepository;
     }
+
+    @Autowired
+    private ITurnoRepository turnoRepository;
 
 
     @Override
     public PacienteDTO buscarPorId(Long id) throws ResourceNotFoundException {
-        Optional<Paciente> pacienteBuscado = repository.findById(id);
+        Optional<Paciente> pacienteBuscado = pacienteRepository.findById(id);
         if(pacienteBuscado.isPresent()) {
             PacienteDTO pacienteDTO = mapper.convertValue(pacienteBuscado, PacienteDTO.class);
             return pacienteDTO;
@@ -41,7 +47,7 @@ public class PacienteService implements IPacienteService {
 
     @Override
     public Set<PacienteDTO> buscarTodos() {
-        List<Paciente> pacienteList = repository.findAll();
+        List<Paciente> pacienteList = pacienteRepository.findAll();
         Set<PacienteDTO> pacienteDTOS = new HashSet<>();
 
         for(Paciente paciente : pacienteList) {
@@ -54,8 +60,8 @@ public class PacienteService implements IPacienteService {
 
     @Override
     public void eliminarPaciente(Long id) throws ResourceNotFoundException {
-        if(repository.findById(id).isPresent()) {
-            repository.deleteById(id);
+        if(pacienteRepository.findById(id).isPresent()) {
+            pacienteRepository.deleteById(id);
         }  else {
             throw new ResourceNotFoundException("No existe el paciente solicitado.");
         }
@@ -63,11 +69,11 @@ public class PacienteService implements IPacienteService {
 
     @Override
     public PacienteDTO actualizarPaciente(Long id, PacienteDTO pacienteDTO) throws ResourceNotFoundException {
-        Optional<Paciente> pacienteBuscado = repository.findById(id);
+        Optional<Paciente> pacienteBuscado = pacienteRepository.findById(id);
         if(pacienteBuscado.isPresent()) {
             Paciente paciente = mapper.convertValue(pacienteDTO, Paciente.class);
             paciente.setId(Long.valueOf(id));
-            paciente = repository.save(paciente);
+            paciente = pacienteRepository.save(paciente);
             return mapper.convertValue(paciente, PacienteDTO.class);
         } else {
             throw new ResourceNotFoundException("No existe el paciente solicitado.");
@@ -80,14 +86,14 @@ public class PacienteService implements IPacienteService {
         for(Domicilio domicilio : paciente.getDomicilios()) {
             domicilio.setPaciente(paciente);
         }
-        Paciente pacienteGuardado = repository.save(paciente);
+        Paciente pacienteGuardado = pacienteRepository.save(paciente);
         PacienteDTO pacienteDTOGuardado = mapper.convertValue(pacienteGuardado, PacienteDTO.class);
         return pacienteDTOGuardado;
     }
 
     @Override
-    public PacienteDTO findPacienteByDni(String dni) throws ResourceNotFoundException {
-        Paciente pacienteBuscado = repository.findPacienteByDni(dni);
+    public PacienteDTO findByDni(String dni) throws ResourceNotFoundException {
+        Paciente pacienteBuscado = pacienteRepository.findByDni(dni);
         if(pacienteBuscado != null) {
             PacienteDTO pacienteDTO = mapper.convertValue(pacienteBuscado, PacienteDTO.class);
             return pacienteDTO;
@@ -95,4 +101,6 @@ public class PacienteService implements IPacienteService {
             throw new ResourceNotFoundException("No existe el paciente solicitado.");
         }
     }
+
+
 }

@@ -2,6 +2,7 @@ package com.ctd.integrador.backend1.service;
 
 import com.ctd.integrador.backend1.exceptions.ResourceNotFoundException;
 import com.ctd.integrador.backend1.model.TurnoDTO;
+import com.ctd.integrador.backend1.persistence.entity.Turno;
 import org.springframework.http.ResponseEntity;
 
 import java.util.NoSuchElementException;
@@ -13,4 +14,7 @@ public interface ITurnoService {
     void eliminarTurno(Long id) throws ResourceNotFoundException;
     TurnoDTO actualizarTurno(TurnoDTO turnoDTO) throws ResourceNotFoundException;
     TurnoDTO agregarTurno(TurnoDTO turnoDTO);
+    Set<TurnoDTO> findTurnoByPacienteId(Long id);
+    Set<TurnoDTO> findTurnoByOdontologoId(Long id);
+
 }

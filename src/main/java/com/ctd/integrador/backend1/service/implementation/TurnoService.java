@@ -77,4 +77,26 @@ public class TurnoService implements ITurnoService {
         return turnoDTOGuardado;
     }
 
+    @Override
+    public Set<TurnoDTO> findTurnoByPacienteId(Long id) {
+        Set<Turno> turnosEncontrados = repository.findAllByPacienteId(id);
+        Set<TurnoDTO> turnosEncontradosDTO = new HashSet<>();
+        for(Turno turno : turnosEncontrados) {
+            TurnoDTO turnoDTO = mapper.convertValue(turno, TurnoDTO.class);
+            turnosEncontradosDTO.add(turnoDTO);
+        }
+        return turnosEncontradosDTO;
+    }
+
+    @Override
+    public Set<TurnoDTO> findTurnoByOdontologoId(Long id) {
+        Set<Turno> turnosEncontrados = repository.findAllByOdontologoId(id);
+        Set<TurnoDTO> turnosEncontradosDTO = new HashSet<>();
+        for(Turno turno : turnosEncontrados) {
+            TurnoDTO turnoDTO = mapper.convertValue(turno, TurnoDTO.class);
+            turnosEncontradosDTO.add(turnoDTO);
+        }
+        return turnosEncontradosDTO;
+    }
+
 }

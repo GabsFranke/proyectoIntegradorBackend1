@@ -29,6 +29,16 @@ public class TurnoController {
         return ResponseEntity.ok(service.buscarPorId(id));
     }
 
+    @GetMapping("/paciente/{id}")
+    public ResponseEntity<Set<TurnoDTO>> buscarTurnosPorIdDePaciente(@PathVariable Long id){
+        return ResponseEntity.ok(service.findTurnoByPacienteId(id));
+    }
+
+    @GetMapping("/odontologo/{id}")
+    public ResponseEntity<Set<TurnoDTO>> buscarTurnosPorIdDeOdontologo(@PathVariable Long id){
+        return ResponseEntity.ok(service.findTurnoByOdontologoId(id));
+    }
+
     @PostMapping
     public ResponseEntity<TurnoDTO> crearTurno(@RequestBody TurnoDTO turnoDTO) {
         return ResponseEntity.ok(service.agregarTurno(turnoDTO));
@@ -45,4 +55,7 @@ public class TurnoController {
         service.eliminarTurno(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Turno eliminado");
     }
+
+
+
 }
