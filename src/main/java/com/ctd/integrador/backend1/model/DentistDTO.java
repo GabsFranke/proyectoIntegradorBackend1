@@ -9,6 +9,6 @@ public class DentistDTO {
     private Long id;
     private String name;
     private String lastname;
-    private Integer registrationNumber;
+    private String registrationNumber;
 
 }

@@ -5,10 +5,12 @@ import com.ctd.integrador.backend1.model.AppointmentDTO;
 import com.ctd.integrador.backend1.model.DentistDTO;
 import com.ctd.integrador.backend1.service.IDentistService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.annotation.AccessType;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.Access;
 import java.util.Set;
 
 @RestController

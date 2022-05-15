@@ -1,5 +1,6 @@
 package com.ctd.integrador.backend1.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +12,7 @@ public class AddressDTO {
     private String number;
     private String city;
     private String state;
-    @JsonIncludeProperties({"id"})
+    @JsonIgnore
     private PatientDTO patient;
 
 }

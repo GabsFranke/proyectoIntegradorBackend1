@@ -46,7 +46,7 @@ class IntegradorBackend1ApplicationTests {
 		patientDTO.setLastname("Caries");
 		patientDTO.setDni("12345678");
 		patientDTO.setRegistrationDate(LocalDate.parse("2011-01-11"));
-		patientDTO.setAddresses(addresses);
+
 
 		return patientDTO;
 	}
@@ -55,7 +55,7 @@ class IntegradorBackend1ApplicationTests {
 		DentistDTO dentistDTO = new DentistDTO();
 		dentistDTO.setName("Dr.");
 		dentistDTO.setLastname("Muelitas");
-		dentistDTO.setRegistrationNumber(1337);
+		dentistDTO.setRegistrationNumber("1337");
 
 		return dentistDTO;
 	}
@@ -69,11 +69,7 @@ class IntegradorBackend1ApplicationTests {
 		Assertions.assertEquals(patient.getLastname(), "Caries");
 		Assertions.assertEquals(patient.getDni(), "12345678");
 		Assertions.assertEquals(patient.getRegistrationDate(), LocalDate.parse("2011-01-11"));
-		Assertions.assertEquals(patient.getAddresses().size(), 1);
-		Assertions.assertEquals(patient.getAddresses().iterator().next().getStreet(), "Calle Falsa");
-		Assertions.assertEquals(patient.getAddresses().iterator().next().getNumber(), "123");
-		Assertions.assertEquals(patient.getAddresses().iterator().next().getCity(), "Springfield");
-		Assertions.assertEquals(patient.getAddresses().iterator().next().getState(), "Los Simpson");
+
 	}
 
 	@Test
@@ -109,7 +105,6 @@ class IntegradorBackend1ApplicationTests {
 		// Propiedades ignoradas en el dto
 		Assertions.assertNull(appointment.getPatient().getDni());
 		Assertions.assertNull(appointment.getPatient().getRegistrationDate());
-		Assertions.assertNull(appointment.getPatient().getAddresses());
 	}
 
 	@Test
@@ -120,10 +115,8 @@ class IntegradorBackend1ApplicationTests {
 		fakeAddress.setNumber("1234");
 		fakeAddress.setCity("Springfield");
 		fakeAddress.setState("Los Simpson");
-		patient.getAddresses().add(fakeAddress);
 		patient = patientService.updatePatient(patient.getId(), patient);
 		Assertions.assertNotNull(patient);
-		Assertions.assertEquals(patient.getAddresses().size(), 2);
 	}
 
 	@Test
