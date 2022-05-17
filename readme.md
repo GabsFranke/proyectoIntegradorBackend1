@@ -45,9 +45,9 @@ The requirements were:
 
 ## API usage
 The API is currently deployed in the Heroku platform and an authentication method is required to make any request.
-- Admin, user|pass: admin@mail.com|admin (Authorization: "Basic " + btoa("admin@mail.com:admin")
+- Admin, user | pass: admin@mail.com | admin (Authorization: "Basic " + btoa("admin@mail.com:admin")
   - Has access to everything
-- Basic user, user|pass: user@mail.com|user (Authorization: "Basic " + btoa("user@mail.com:user")
+- Basic user, user | pass: user@mail.com | user (Authorization: "Basic " + btoa("user@mail.com:user")
   - Only access to /appointments
 
 **ENDPOINTS**
