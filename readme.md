@@ -1,6 +1,7 @@
 # API REST
 
-Deploy: https://back-api-gf.herokuapp.com/
+Deploy: https://back-api-gf.herokuapp.com/ 
+
 *Note: requires login. See more information bellow.
 
 This project was my final assignment in Backend 1 (Certified Tech Dev carreer).
